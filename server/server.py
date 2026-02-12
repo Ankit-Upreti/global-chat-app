@@ -35,14 +35,22 @@ async def handler(websocket):
     if username not in users_db:
         users_db[username] = password
         save_users()
-        await websocket.send(json.dumps({"status": "registered"}))
+        status = "registered"
     else:
         if users_db[username] != password:
             await websocket.send(json.dumps({"status": "denied"}))
             return
-        await websocket.send(json.dumps({"status": "authenticated"}))
+        status = "authenticated"
 
+    # Prevent duplicate login
+    if username in connected_clients.values():
+        await websocket.send(json.dumps({"status": "already_logged_in"}))
+        return
+
+    await websocket.send(json.dumps({"status": status}))
     connected_clients[websocket] = username
+
+
     print(f"{username} connected")
 
     try:
@@ -71,5 +79,7 @@ async def main():
         await asyncio.Future()
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
+
 

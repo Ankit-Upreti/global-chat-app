@@ -4,7 +4,8 @@ import json
 import sys
 import getpass
 
-uri = "ws://localhost:10000"
+uri = "wss://your-render-app-name.onrender.com"
+
 
 
 async def send_message(websocket):
@@ -39,6 +40,11 @@ async def main():
         if response["status"] == "denied":
             print("Authentication failed.")
             return
+
+        if response["status"] == "already_logged_in":
+            print("User already logged in elsewhere.")
+            return
+
 
         print("Login successful.")
 
