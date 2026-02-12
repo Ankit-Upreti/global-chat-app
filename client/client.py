@@ -4,7 +4,7 @@ import json
 import sys
 import getpass
 
-uri = "wss://your-render-app-name.onrender.com"
+uri = "https://chaton-4i6d.onrender.com"
 
 
 
