@@ -4,7 +4,8 @@ import json
 import sys
 import getpass
 
-uri = "https://chaton-4i6d.onrender.com"
+uri = "wss://chaton-4i6d.onrender.com"
+
 
 
 
